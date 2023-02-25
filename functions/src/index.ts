@@ -1,7 +1,7 @@
-import * as functions from "firebase-functions";
-import {Configuration, OpenAIApi} from "openai";
+import * as functions from 'firebase-functions';
+import {Configuration, OpenAIApi} from 'openai';
 
-const DEFAULT_MODAL = "text-davinci-003";
+const DEFAULT_MODAL = 'text-davinci-003';
 
 const configuration = new Configuration({
   organization: process.env.ORGANIZATION,
@@ -15,12 +15,12 @@ export const openAIHttpFunction = functions.https.onRequest(async (request, resp
   const params = request.query;
 
   if (!params.query) {
-    response.send("Please Send Query Paramater");
+    response.send('Please Send Query Paramater');
   }
 
   const openAPIResponse = await openai.createCompletion({
     model: process.env.MODAL || DEFAULT_MODAL,
-    prompt: params?.query?.toString() || "Not Defined",
+    prompt: params?.query?.toString() || 'Not Defined',
     max_tokens: +(process.env.MAX_TOKENS || 0),
     temperature: +(process.env.TEMPRATURE || 0),
   });
